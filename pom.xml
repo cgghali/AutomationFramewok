@@ -21,7 +21,7 @@
 		<maven.surefire.plugin.version>2.21.0</maven.surefire.plugin.version>
 		<guava.version>27.0-jre</guava.version>
 		<jackson-core.version>2.9.8</jackson-core.version>
-		<jackson-databind.version>2.9.8</jackson-databind.version>
+		<jackson-databind.version>2.10.0.pr1</jackson-databind.version>
 		<json-schema-validator.version>2.2.6</json-schema-validator.version>
 		<jackson-coreutils.version>1.8</jackson-coreutils.version>
 
