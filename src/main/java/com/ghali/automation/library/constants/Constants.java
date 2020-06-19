@@ -68,6 +68,18 @@ public final class Constants {
 
 	}
 
+	public static final class CommandLineConstants {
+
+		private CommandLineConstants() {
+		}
+
+		public static final String ADB_LOCATION = System.getenv("ANDROID_HOME") + "/platform-tools/adb ";
+		public static final String ADB_DEVICES = ADB_LOCATION + "devices";
+		public static final String I_DEVICES = "idevice_id -l";
+		public static final String INSTRUMENTS_DEVICES = "instruments -s devices";
+
+	}
+
 
 
 

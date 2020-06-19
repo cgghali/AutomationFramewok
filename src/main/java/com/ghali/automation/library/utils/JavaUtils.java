@@ -1,8 +1,10 @@
 package com.ghali.automation.library.utils;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Map;
 import java.util.Properties;
@@ -82,6 +84,30 @@ public class JavaUtils {
 			e.printStackTrace();
 			LOG.error("ERROR : Could not execute sleep on this thread");
 		}
+	}
+
+	public String executeCommand(String command) {
+
+		String line = "";
+		String output = "";
+		try {
+			Process process = Runtime.getRuntime().exec(command);
+			// WAIT FOR OUTPUT TO APPEAR.
+			process.waitFor();
+			BufferedReader buffer = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			while ((line = buffer.readLine()) != null) {
+				if (output.isEmpty()) {
+					output = line;
+				} else {
+					output = output + "\n" + line;
+				}
+			}
+			buffer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		LOG.debug("Output on executing command <" + command + "> IS\n" + output);
+		return output;
 	}
 
 }

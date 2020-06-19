@@ -30,10 +30,11 @@ public class AppiumUtils {
 	 * @return {@link String}, socket at which appium server is running.
 	 * @throws Exception
 	 */
-	public void startAppiumServer() {
+	public void startAppiumServer(String driverName) {
 
 		LOG.info("Starting Appium Server");
-		String driverName = UtilityFactory.getJavaUtils().getConfigMap().get("driverName");
+		driverName = "android";
+		// driverName = UtilityFactory.getJavaUtils().getConfigMap().get("driverName");
 		if (driverName.equalsIgnoreCase(Platform.ANDROID.name()) || driverName.equalsIgnoreCase(Platform.IOS.name())) {
 
 			String command = "";
@@ -66,14 +67,20 @@ public class AppiumUtils {
 				}
 			} else {
 
-				command = String.format(
-						"%s %s -a %s -p %d --no-reset --log %s/appium.log --log-level debug --session-override",
-						this.nodePath, this.appiumMainJS, this.hostName, availablePort, System.getProperty("user.dir"));
+				/*
+				 * command = String.format(
+				 * "%s %s -a %s -p %d --no-reset --log %s/appium.log --log-level debug --session-override"
+				 * , this.nodePath, this.appiumMainJS, this.hostName, availablePort,
+				 * System.getProperty("user.dir"));
+				 */
+
+
 				LOG.debug("Command to start appium server \n" + command);
 			}
 
 			try {
-				this.process = Runtime.getRuntime().exec(command);
+				this.process = Runtime.getRuntime().exec(
+						"cmd.exe /c start cmd.exe /k \"appium -a 127.0.0.1 -p 4721 --session-override -dc \"{\"\"noReset\"\": \"\"false\"\"}\"\"");
 			} catch (IOException e) {
 
 				e.printStackTrace();
@@ -86,6 +93,7 @@ public class AppiumUtils {
 			}
 
 			this.appiumServerUrl = String.format("http://%s:%s/wd/hub", hostName, availablePort);
+
 			LOG.info("Appium server started on : " + this.appiumServerUrl);
 		}
 	}
